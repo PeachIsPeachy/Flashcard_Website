@@ -34,53 +34,6 @@ Deploy the static frontend anywhere that serves SPAs (e.g. **Vercel**); data liv
 - (Optional) [Vercel](https://vercel.com/) for hosting  
 
 ---
-
-## 1. Supabase setup
-
-### New database (recommended)
-
-1. Create a project in the [Supabase dashboard](https://supabase.com/dashboard) and wait until the DB is ready.  
-2. **SQL Editor → New query**, paste all of [`supabase/schema.sql`](supabase/schema.sql), run it once.  
-   This creates tables, indexes, and RLS so users only access their own rows.
-
-### Existing project (already ran an older `schema.sql`)
-
-Apply incremental migrations in order (skip any you already applied manually):
-
-| File | Purpose |
-|------|---------|
-| [`001_add_missed_cards_to_study_sessions.sql`](supabase/migrations/001_add_missed_cards_to_study_sessions.sql) | `missed_cards` JSON on `study_sessions` |
-| [`002_add_daily_study.sql`](supabase/migrations/002_add_daily_study.sql) | `daily_goal`, `daily_batch_offset` on `decks`; `scope` on `study_sessions` |
-| [`003_learning_journal_and_notebook.sql`](supabase/migrations/003_learning_journal_and_notebook.sql) | `learning_logs`, `notebook_entries` |
-| [`004_notebook_entry_note.sql`](supabase/migrations/004_notebook_entry_note.sql) | `note` column on `notebook_entries` |
-
-If queries fail on missing columns, run the matching migration in **SQL Editor**.
-
-### API keys & auth URLs
-
-1. **Project Settings → API**: copy **Project URL** and **anon public** key (browser-safe with RLS).  
-2. **Authentication → URL configuration**: add local dev (e.g. `http://localhost:5173`) and production URL to **Site URL** / **Redirect URLs** as needed.  
-3. Optional: **Authentication → Providers → Email** → disable email confirmation for quicker local testing.
-
----
-
-## 2. Environment variables
-
-Copy the example file and fill in real values:
-
-```bash
-cp .env.example .env
-```
-
-| Variable | Description |
-|----------|-------------|
-| `VITE_SUPABASE_URL` | Supabase project URL |
-| `VITE_SUPABASE_ANON_KEY` | Supabase anon (publishable) key |
-
-Never commit `.env` or use the **service role** key in the frontend.
-
----
-
 ## 3. Local development
 
 ```bash
@@ -109,14 +62,3 @@ supabase/
 ```
 
 ---
-
-## Security
-
-- Only the **anon** key ships to the browser; **RLS** enforces per-user access to `decks`, `cards`, `study_sessions`, `learning_logs`, and `notebook_entries`.  
-- To validate isolation, create two accounts and confirm neither reads the other’s data.  
-
----
-
-## Feedback submissions
-
-The feedback form currently logs to the browser console and shows a success toast. Wire it to Supabase (table + RLS) or another backend when you want persistence.
