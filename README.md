@@ -89,26 +89,6 @@ npm run dev
 ```
 ---
 
-## 4. Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Vite dev server with HMR |
-| `npm run build` | `tsc -b` + production bundle to `dist/` |
-| `npm run preview` | Serve `dist/` locally |
-
----
-
-## 5. Deploy (e.g. Vercel)
-
-1. Connect the repo and use **Framework preset: Vite** (build: `npm run build`, output: `dist`).  
-2. Set **`VITE_SUPABASE_URL`** and **`VITE_SUPABASE_ANON_KEY`** in the host’s environment variables (same as `.env`).  
-3. Add the production URL to Supabase Auth redirect / site URL settings.  
-
-[`vercel.json`](vercel.json) rewrites unknown paths to `index.html` so React Router works on refresh.
-
----
-
 ## Project layout
 
 ```
@@ -135,4 +115,8 @@ supabase/
 - Only the **anon** key ships to the browser; **RLS** enforces per-user access to `decks`, `cards`, `study_sessions`, `learning_logs`, and `notebook_entries`.  
 - To validate isolation, create two accounts and confirm neither reads the other’s data.  
 
+---
 
+## Feedback submissions
+
+The feedback form currently logs to the browser console and shows a success toast. Wire it to Supabase (table + RLS) or another backend when you want persistence.
