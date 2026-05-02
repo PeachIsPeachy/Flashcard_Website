@@ -1,10 +1,8 @@
 # Flashcard
 
-A full-stack flashcard website for studying any topic: discrete Q/A cards, optional daily batches, session history, a per-deck journal, and a notebook for cards you save after review—plus lightweight feedback from the account menu.
+A full-stack flashcard website for studying any topic: discrete Q/A cards, optional daily batches, session history, a per-deck journal, and a notebook for cards you save after review.
 
 **Stack:** React 18 · Vite · TypeScript · Tailwind CSS · shadcn-style UI (Radix) · React Router v6 · Supabase (Auth + Postgres + RLS).
-
-Deploy the static frontend anywhere that serves SPAs (e.g. **Vercel**); data lives in **Supabase**.
 
 ---
 
