@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 10 22% 12%;
+    --foreground: 43 100% 95%;
+    --card: 10 19% 16%;
+    --card-foreground: 43 100% 95%;
+    --popover: 10 19% 16%;
+    --popover-foreground: 43 100% 95%;
+    --primary: 0 72% 72%;
+    --primary-foreground: 10 22% 12%;
+    --secondary: 10 14% 23%;
+    --secondary-foreground: 43 100% 95%;
+    --muted: 10 14% 23%;
+    --muted-foreground: 28 32% 74%;
+    --accent: 0 32% 32%;
+    --accent-foreground: 43 100% 95%;
+    --destructive: 0 72% 72%;
+    --destructive-foreground: 10 22% 12%;
+    --border: 9 14% 28%;
+    --input: 9 14% 28%;
+    --ring: 0 72% 72%;
+    --radius: 0.7rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer components {
+  .flashcard-scene {
+    perspective: 1200px;
+  }
+  .flashcard-inner {
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .flashcard-inner.is-flipped {
+    transform: rotateY(180deg);
+  }
+  .flashcard-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .flashcard-face--back {
+    transform: rotateY(180deg);
+  }
+}
